@@ -29,10 +29,30 @@ public class RegisterActivity extends AppCompatActivity {
                 } else if (validationCodeText.length()<7){
                     Toast.makeText(getApplicationContext(), "Your code must have 7 characters", Toast.LENGTH_SHORT).show();
                 } else{
-                    Intent proceed_intent=new Intent(RegisterActivity.this, RegisterSecondActivity.class);
-                    proceed_intent.putExtra("validationCode", validationCodeText);
-                    startActivity(proceed_intent);
-                    overridePendingTransition(0,0);
+                    UserDatabase userDatabase=UserDatabase.getUserDatabase(getApplicationContext());
+                    UserDao userDao=userDatabase.userDao();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user= userDao.getvalidationCode(validationCodeText);
+                            if (user==null){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent proceed_intent=new Intent(RegisterActivity.this, RegisterSecondActivity.class);
+                                        proceed_intent.putExtra("validationCode", validationCodeText);
+                                        startActivity(proceed_intent);
+                                        overridePendingTransition(0,0);                                    }
+                                });
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "User with the same validation code already exists!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });                            }
+                        }
+                    }).start();
+
                 }
             }
         });

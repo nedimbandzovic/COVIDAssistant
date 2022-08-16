@@ -4,7 +4,9 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ public class RegisterFinalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register_final);
         getSupportActionBar().hide();
         Random rand = new Random();
+        Handler handler=new Handler();
         String first_name=getIntent().getStringExtra("firstname");
         String second_name=getIntent().getStringExtra("secondname");
         String email=getIntent().getStringExtra("email");
@@ -153,6 +156,13 @@ public class RegisterFinalActivity extends AppCompatActivity {
                           @Override
                           public void run() {
                               Toast.makeText(getApplicationContext(),"You registered successfully",Toast.LENGTH_SHORT).show();
+                              handler.postDelayed(new Runnable() {
+                                  public void run() {
+                                      Intent login_intent=new Intent (RegisterFinalActivity.this, LoginActivity.class);
+                                      login_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                      startActivity(login_intent);
+                                  }
+                              }, 5000);   //5 seconds
                           }
                       });
                   }

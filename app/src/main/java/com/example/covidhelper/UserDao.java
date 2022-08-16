@@ -19,4 +19,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM users WHERE username =:username")
     User getUsername(String username);
+
+    @Query("SELECT * FROM users WHERE validationCode =:code")
+    User getvalidationCode(String code);
 }

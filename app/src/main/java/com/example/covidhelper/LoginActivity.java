@@ -31,7 +31,27 @@ public class LoginActivity extends AppCompatActivity {
                 } else if (password_text.length()<=8){
                     Toast.makeText(getApplicationContext(), "Your password is not valid", Toast.LENGTH_SHORT).show();
                 } else{
-                    Toast.makeText(getApplicationContext(), "Ok", Toast.LENGTH_SHORT).show();
+                    UserDatabase userDatabase=UserDatabase.getUserDatabase(getApplicationContext());
+                    UserDao userDao=userDatabase.userDao();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user= userDao.login(username_text, password_text);
+                            if (user==null){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Entered credentials are not correct, try again", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Intent successful_login_intent=new Intent(LoginActivity.this, CovidCodeActivity.class);
+                                startActivity(successful_login_intent);
+                                overridePendingTransition(0, 0);
+                            }
+                        }
+                    }).start();
+
                 }
             }
         });
@@ -43,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 overridePendingTransition(0, 0);
             }
         });
+
 
     }
 }
