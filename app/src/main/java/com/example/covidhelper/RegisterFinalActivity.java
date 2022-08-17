@@ -161,6 +161,7 @@ public class RegisterFinalActivity extends AppCompatActivity {
                                       Intent login_intent=new Intent (RegisterFinalActivity.this, LoginActivity.class);
                                       login_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                       startActivity(login_intent);
+                                      overridePendingTransition(0,0);
                                   }
                               }, 5000);   //5 seconds
                           }

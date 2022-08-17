@@ -47,17 +47,33 @@ public class RegisterSecondActivity extends AppCompatActivity {
                 } else if (!isEmailValid(e)) {
                     Toast.makeText(getApplicationContext(), "You need to enter a proper email", Toast.LENGTH_SHORT).show();
                 } else{
-                    Intent proceed_intent=new Intent(RegisterSecondActivity.this, RegisterThirdActivity.class);
-                    proceed_intent.putExtra("firstname", fn);
-                    proceed_intent.putExtra("secondname", sn);
-                    proceed_intent.putExtra("email", e);
-                    proceed_intent.putExtra("municipality", muni);
-                    proceed_intent.putExtra("validationCode", vC);
-                    startActivity(proceed_intent);
-                    overridePendingTransition(0,0);
+                    UserDatabase userDatabase=UserDatabase.getUserDatabase(getApplicationContext());
+                    UserDao userDao=userDatabase.userDao();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            User user=userDao.getEmail(e);
+                            if (user==null){
+                                Intent proceed_intent=new Intent(RegisterSecondActivity.this, RegisterThirdActivity.class);
+                                proceed_intent.putExtra("firstname", fn);
+                                proceed_intent.putExtra("secondname", sn);
+                                proceed_intent.putExtra("email", e);
+                                proceed_intent.putExtra("municipality", muni);
+                                proceed_intent.putExtra("validationCode", vC);
+                                startActivity(proceed_intent);
+                                overridePendingTransition(0,0);
+                            } else{
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "User with this e-mail address already exists", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }).start();
                 }
             }
-
             boolean isEmailValid(String email) {
                 return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
             }

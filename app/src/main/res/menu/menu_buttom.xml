@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Matches"
+        android:id="@+id/matches"
+        />
+    <item
+        android:title="Leagues"
+        android:id="@+id/leagues"
+        />
+    <item
+        android:title="Players"
+        android:id="@+id/players"
+       />
+    <item
+        android:title="Settings"
+        android:id="@+id/settings"
+        />
+
+</menu>

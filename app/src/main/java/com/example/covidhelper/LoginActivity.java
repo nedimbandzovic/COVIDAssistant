@@ -46,12 +46,12 @@ public class LoginActivity extends AppCompatActivity {
                                 });
                             } else {
                                 Intent successful_login_intent=new Intent(LoginActivity.this, CovidCodeActivity.class);
+                                successful_login_intent.putExtra("username", username_text);
                                 startActivity(successful_login_intent);
                                 overridePendingTransition(0, 0);
                             }
                         }
                     }).start();
-
                 }
             }
         });
