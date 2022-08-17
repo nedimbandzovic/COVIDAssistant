@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import java.text.DecimalFormat;
 
 public class CovidCodeActivity extends AppCompatActivity {
@@ -149,6 +150,7 @@ public class CovidCodeActivity extends AppCompatActivity {
                             public void run() {
 
                                 Toast.makeText(getApplicationContext(),"Temperature successfully updated", Toast.LENGTH_SHORT).show();
+
                                 if (progr>37.5){
                                 progress.setTextColor(Color.RED);
                                 man.setImageResource(R.drawable.redman);
