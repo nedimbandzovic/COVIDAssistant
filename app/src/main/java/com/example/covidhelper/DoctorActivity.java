@@ -3,10 +3,21 @@ package com.example.covidhelper;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Base64;
@@ -34,6 +45,10 @@ import java.util.Random;
 
 public class DoctorActivity extends AppCompatActivity {
     private String final_subject="";
+    private String my_first_name;
+    private String my_last_name;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,38 +82,83 @@ public class DoctorActivity extends AppCompatActivity {
         alert=findViewById(R.id.button6);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                my_first_name=userDao.get_firstname_by_username(username);
+                my_last_name=userDao.get_secondname_by_username(username);
+            }
+        }).start();
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            NotificationChannel channel=new NotificationChannel("Alert Notification", "Alert Notification", NotificationManager.IMPORTANCE_HIGH);
+            NotificationManager manager=getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    URL url = new URL("https://rest-api.telesign.com/v1/messaging");
-                    HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-                    httpConn.setRequestMethod("POST");
-                    httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                    byte[] message = ("11F5FB0E-F4C2-40D1-8D1C-09566A77BB25:Wh3iFvX/0Uh8jCE6YO2YkZFI6emEO1j9H6IOW6MmZ/5SLxu7XEoHOlDqgy3rcHHBNX5jE6Tfph6Rw0CZuCd1sA==").getBytes("UTF-8");
-                    String basicAuth = android.util.Base64.encodeToString(message, Base64.NO_WRAP);
+                AlertDialog.Builder builder = new AlertDialog.Builder(DoctorActivity.this);
+                builder.setTitle("Please confirm before proceeding");
+                builder.setMessage("You should only use this option ONLY if you have problems which require immediate reaction of your assistant.");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 
-                    httpConn.setRequestProperty("Authorization", "Basic " + basicAuth);
+                    public void onClick(DialogInterface dialog, int which) {
+                        NotificationCompat.Builder builder1=new NotificationCompat.Builder(DoctorActivity.this, "Alert Notification");
+                        builder1.setContentTitle("ASSISTANT HAS BEEN ALERTED");
+                        builder1.setContentText("Expect fast response from " + doctor_name.getText().toString());
+                        builder1.setSmallIcon(R.drawable.alerticon);
+                        builder1.setAutoCancel(true);
+                        NotificationManagerCompat managerCompat=NotificationManagerCompat.from(DoctorActivity.this);
+                        managerCompat.notify(1, builder1.build());
+                        dialog.dismiss();
+                        try {
+                            URL url = new URL("https://rest-api.telesign.com/v1/messaging");
+                            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+                            httpConn.setRequestMethod("POST");
+                            httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                            byte[] message = ("11F5FB0E-F4C2-40D1-8D1C-09566A77BB25:Wh3iFvX/0Uh8jCE6YO2YkZFI6emEO1j9H6IOW6MmZ/5SLxu7XEoHOlDqgy3rcHHBNX5jE6Tfph6Rw0CZuCd1sA==").getBytes("UTF-8");
+                            String basicAuth = android.util.Base64.encodeToString(message, Base64.NO_WRAP);
 
-                    httpConn.setDoOutput(true);
-                    OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
-                    writer.write("phone_number=38761648664&message=You have a dentist appointment at 2:15pm&message_type=ARN");
-                    writer.flush();
-                    writer.close();
-                    httpConn.getOutputStream().close();
+                            httpConn.setRequestProperty("Authorization", "Basic " + basicAuth);
 
-                    InputStream responseStream = httpConn.getResponseCode() / 100 == 2
-                            ? httpConn.getInputStream()
-                            : httpConn.getErrorStream();
-                    Scanner s = new Scanner(responseStream).useDelimiter("\\A");
-                    String response = s.hasNext() ? s.next() : "";
-                    System.out.println(response);
-                } catch (IOException ioex) {
-                    ioex.printStackTrace();
-                } finally {
+                            httpConn.setDoOutput(true);
+                            OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+                            writer.write("phone_number=38761648664&message="+my_first_name.toUpperCase() +" " + my_last_name.toUpperCase() + "REQUIRES YOUR IMMEDIATE REACTION, PLEASE CONTACT HIM AS SOON AS POSSIBLE. COVID HELPER" + "&message_type=ARN");
+                            writer.flush();
+                            writer.close();
+                            httpConn.getOutputStream().close();
 
-                }
+                            InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                                    ? httpConn.getInputStream()
+                                    : httpConn.getErrorStream();
+                            Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+                            String response = s.hasNext() ? s.next() : "";
+                            System.out.println(response);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Alerted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } catch (IOException ioex) {
+                            ioex.printStackTrace();
+                        } finally {
+
+                        }
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+
+                AlertDialog alert = builder.create();
+                alert.show();
+
             };
         });
         policija.setOnClickListener(new View.OnClickListener() {

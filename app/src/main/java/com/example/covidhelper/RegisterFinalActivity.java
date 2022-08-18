@@ -143,7 +143,7 @@ public class RegisterFinalActivity extends AppCompatActivity {
               user.setMunicipality(municipality.toString());
               user.setSmellStatus("0");
               user.setTasteStatus("0");
-              user.setTempStatus("0");
+              user.setTempStatus("35");
               user.setValidationCode(validation_code.toString());
               user.setEmail(email.toString());
               UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
