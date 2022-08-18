@@ -64,7 +64,8 @@ public class CovidCodeActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return;
                     case R.id.settings:
-                        startActivity(new Intent(CovidCodeActivity.this, SettingsActivity.class));
+                        Intent settings_intent=new Intent (CovidCodeActivity.this, SettingsActivity.class);
+                        settings_intent.putExtra("username", username);
                         finish();
                         overridePendingTransition(0,0);
                         return;

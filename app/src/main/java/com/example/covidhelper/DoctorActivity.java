@@ -234,7 +234,9 @@ public class DoctorActivity extends AppCompatActivity {
                         finish();
                         overridePendingTransition(0,0);
                     case R.id.settings:
-                        startActivity(new Intent(DoctorActivity.this, SettingsActivity.class));
+                        Intent settings_intent=new Intent(DoctorActivity.this, SettingsActivity.class);
+                        settings_intent.putExtra("username", username);
+                        startActivity(settings_intent);
                         finish();
                         overridePendingTransition(0,0);
                         return;
