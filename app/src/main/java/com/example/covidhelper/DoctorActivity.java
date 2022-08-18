@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,14 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Scanner;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -53,6 +63,44 @@ public class DoctorActivity extends AppCompatActivity {
         subject=findViewById(R.id.editTextTextPersonName4);
         message=findViewById(R.id.editTextTextPersonName45);
         checkBox=findViewById(R.id.checkbox_meats);
+        Button alert;
+        alert=findViewById(R.id.button6);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    URL url = new URL("https://rest-api.telesign.com/v1/messaging");
+                    HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+                    httpConn.setRequestMethod("POST");
+                    httpConn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    byte[] message = ("11F5FB0E-F4C2-40D1-8D1C-09566A77BB25:Wh3iFvX/0Uh8jCE6YO2YkZFI6emEO1j9H6IOW6MmZ/5SLxu7XEoHOlDqgy3rcHHBNX5jE6Tfph6Rw0CZuCd1sA==").getBytes("UTF-8");
+                    String basicAuth = android.util.Base64.encodeToString(message, Base64.NO_WRAP);
+
+                    httpConn.setRequestProperty("Authorization", "Basic " + basicAuth);
+
+                    httpConn.setDoOutput(true);
+                    OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+                    writer.write("phone_number=38761648664&message=You have a dentist appointment at 2:15pm&message_type=ARN");
+                    writer.flush();
+                    writer.close();
+                    httpConn.getOutputStream().close();
+
+                    InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                            ? httpConn.getInputStream()
+                            : httpConn.getErrorStream();
+                    Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+                    String response = s.hasNext() ? s.next() : "";
+                    System.out.println(response);
+                } catch (IOException ioex) {
+                    ioex.printStackTrace();
+                } finally {
+
+                }
+            };
+        });
         policija.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +128,8 @@ public class DoctorActivity extends AppCompatActivity {
 
             }
         });
+
+
         sender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,6 +144,8 @@ public class DoctorActivity extends AppCompatActivity {
                 String mMessage = message_final;
                 JavaMailAPI javaMailAPI = new JavaMailAPI(DoctorActivity.this, mEmail, mSubject, mMessage);
                 javaMailAPI.execute();
+
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
