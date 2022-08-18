@@ -2,20 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:title="Matches"
-        android:id="@+id/matches"
+        android:title="Dashboard"
+        android:id="@+id/dashboard"
+        android:icon="@drawable/dashboard"
         />
     <item
-        android:title="Leagues"
-        android:id="@+id/leagues"
+        android:title="Symptoms"
+        android:id="@+id/symptoms"
+        android:icon="@drawable/symptoms"
         />
     <item
-        android:title="Players"
-        android:id="@+id/players"
+        android:title="Doctor"
+        android:id="@+id/doctor"
+        android:icon="@drawable/doctoriconbar"
        />
     <item
         android:title="Settings"
         android:id="@+id/settings"
+        android:icon="@drawable/settings"
         />
 
 </menu>

@@ -1,9 +1,12 @@
 package com.example.covidhelper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +15,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.text.DecimalFormat;
 
@@ -36,6 +42,8 @@ public class CovidCodeActivity extends AppCompatActivity {
         decr=findViewById(R.id.button_decr);
         setter=findViewById(R.id.button4);
         man=findViewById(R.id.imageView9);
+        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.dashboard);
         progress=findViewById(R.id.text_view_progress);
         ProgressBar progress_bar=findViewById(R.id.progress_bar);
         UserDatabase userDatabase=UserDatabase.getUserDatabase(getApplicationContext());
@@ -44,6 +52,30 @@ public class CovidCodeActivity extends AppCompatActivity {
         smell=findViewById(R.id.radioButton2);
         taste=findViewById(R.id.radioButton3);
         radioBtn=findViewById(R.id.button34);
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.doctor:
+                        Intent doctor_intent=new Intent (CovidCodeActivity.this, DoctorActivity.class);
+                        doctor_intent.putExtra("username", username);
+                        startActivity(doctor_intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.settings:
+                        startActivity(new Intent(CovidCodeActivity.this, SettingsActivity.class));
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.symptoms:
+                        startActivity(new Intent(CovidCodeActivity.this, SymptomsActivity.class));
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                }
+            }
+        });
         radioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +182,6 @@ public class CovidCodeActivity extends AppCompatActivity {
                             public void run() {
 
                                 Toast.makeText(getApplicationContext(),"Temperature successfully updated", Toast.LENGTH_SHORT).show();
-
                                 if (progr>37.5){
                                 progress.setTextColor(Color.RED);
                                 man.setImageResource(R.drawable.redman);

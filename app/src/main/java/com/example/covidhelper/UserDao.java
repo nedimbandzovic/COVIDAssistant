@@ -49,6 +49,12 @@ public interface UserDao {
 
     @Query("UPDATE users SET TasteStatus= :taste WHERE username=:username")
     void set_taste(String taste,String username);
+    @Query("SELECT Doctor FROM users WHERE username =:username")
+    String get_doctor_by_username(String username);
+    @Query("SELECT DoctorEmail FROM users WHERE username =:username")
+    String get_doctor_email_by_username(String username);
+    @Query("SELECT Hospital FROM users WHERE username =:username")
+    String get_doctor_hospital_by_username(String username);
 
 
 }
