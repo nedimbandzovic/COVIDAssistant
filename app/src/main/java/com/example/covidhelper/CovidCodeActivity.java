@@ -70,7 +70,9 @@ public class CovidCodeActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return;
                     case R.id.symptoms:
-                        startActivity(new Intent(CovidCodeActivity.this, SymptomsActivity.class));
+                        Intent symptoms_intent=new Intent(CovidCodeActivity.this, SymptomsActivity.class);
+                        symptoms_intent.putExtra("username",username);
+                        startActivity(symptoms_intent);
                         finish();
                         overridePendingTransition(0,0);
                         return;
