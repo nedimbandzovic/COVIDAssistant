@@ -110,38 +110,52 @@ public class SymptomsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         if (coughingYes.isChecked()){
                             coughing_status="Yes";
+                            coughingNo.setClickable(false);
                         } else{
                             coughing_status="No";
+                            coughingYes.setClickable(false);
                         }
                         if (soreYes.isChecked()){
                             sore_status="Yes";
+                            soreNo.setClickable(false);
                         } else{
                             sore_status="No";
+                            soreYes.setClickable(true);
                         }
                         if (nauseaYes.isChecked()){
                             nausea_status="Yes";
+                            nauseaNo.setClickable(false);
                         } else{
                             nausea_status="No";
+                            nauseaYes.setClickable(true);
                         }
                         if (dijarejaYes.isChecked()){
                             d_status="Yes";
+                            dijarejaNo.setClickable(false);
                         } else{
                             d_status="No";
+                            dijarejaYes.setClickable(true);
                         }
                         if (fatigueYes.isChecked()){
                             fatigue_status="Yes";
+                            fatigueNo.setClickable(false);
                         } else{
                             fatigue_status="No";
+                            fatigueNo.setClickable(true);
                         }
                         if (runnynoseYes.isChecked()){
                             nose_status="Yes";
+                            runnynoseNo.setClickable(false);
                         } else{
                             nose_status="No";
+                            runnynoseYes.setClickable(false);
                         }
                         if (headacheYes.isChecked()){
                             hdche_status="Yes";
+                            headacheNo.setClickable(false);
                         } else{
                             hdche_status="No";
+                            headacheYes.setClickable(false);
                         }
                         if (severebreathing.isChecked()){
                             severe_breathing="Yes";
@@ -182,11 +196,8 @@ public class SymptomsActivity extends AppCompatActivity {
                         PdfDocument myPdfDocument = new PdfDocument();
                         Paint myPaint = new Paint();
                         Paint titlePaint = new Paint();
-
-
                         PdfDocument.PageInfo myPageInfo1 = new PdfDocument.PageInfo.Builder(1200, 2010, 1).create();
                         PdfDocument.Page myPage1 = myPdfDocument.startPage(myPageInfo1);
-
                         Canvas canvas = myPage1.getCanvas();
                         titlePaint.setTextAlign(Paint.Align.CENTER);
                         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
@@ -318,7 +329,7 @@ public class SymptomsActivity extends AppCompatActivity {
                                     }
                                     dialogt.dismiss();
 
-                                } else {
+                                } else if (final_message==null){
                                     dialogt.dismiss();
 
                                 }

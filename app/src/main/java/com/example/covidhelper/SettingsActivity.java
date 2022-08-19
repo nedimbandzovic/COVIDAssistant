@@ -25,6 +25,16 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         logout=findViewById(R.id.button8);
         editProfile=findViewById(R.id.button7);
+        deleteAcc=findViewById(R.id.button47);
+        deleteAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent delete_account=new Intent(SettingsActivity.this, DeleteActivity.class);
+                delete_account.putExtra("username", username);
+                startActivity(delete_account);
+                overridePendingTransition(0,0);
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

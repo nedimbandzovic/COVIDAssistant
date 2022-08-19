@@ -77,9 +77,20 @@ public class DoctorActivity extends AppCompatActivity {
         message=findViewById(R.id.editTextTextPersonName45);
         checkBox=findViewById(R.id.checkbox_meats);
         Button alert;
+        ImageView gmaps;
         alert=findViewById(R.id.button6);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        gmaps=findViewById(R.id.imageView13);
+        gmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gmaps_intent=new Intent(DoctorActivity.this, Map.class);
+                gmaps_intent.putExtra("username", username);
+                startActivity(gmaps_intent);
+                overridePendingTransition(0,0);
+            }
+        });
         new Thread(new Runnable() {
             @Override
             public void run() {

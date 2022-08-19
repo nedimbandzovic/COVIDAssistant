@@ -59,6 +59,9 @@ public interface UserDao {
     String get_password_by_username(String username);
     @Query("UPDATE users SET password =:password WHERE username =:username")
     void set_password_by_username(String password, String username);
+    @Query("DELETE FROM users WHERE username =:username")
+    void delete_by_username(String username);
+
 
 
 }

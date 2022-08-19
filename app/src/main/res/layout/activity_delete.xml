@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".DeleteActivity"
     android:background="@drawable/pozadina">
+
 
     <ImageView
         android:id="@+id/imageView3"
@@ -23,7 +25,7 @@
         android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ENTER THE CODE"
+        android:text="DELETE YOUR ACCOUNT"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +39,7 @@
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="For security purposes, we sent you a 4-digit code to your e-mail before proceeding to the procedure of changing the password. The code is valid for 5 minutes. In case your code expires, you can resend it."
+        android:text="If you delete your account, you can reregister with your validation code that you got on the COVID testing center in Sarajevo. We are so sorry for seeing you go. To delete your account, please type covidhelper/YOUR_USERNAME"
         android:textColor="@color/white"
         android:gravity="center"
         android:textStyle="italic"
@@ -53,7 +55,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="4-digit code"
+        android:hint="covidhelper/YOUR_USERNAME"
         android:textColor="@color/black"
         android:background="@drawable/rounded_corner"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -63,26 +65,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.603" />
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662" />
-
     <Button
         android:id="@+id/button9"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
-        android:text="SUBMIT CODE"
+        android:text="SUBMIT"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,20 +78,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.734" />
-
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
-        android:text="RESEND EMAIL"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.843" />
 
     <ImageView
         android:id="@+id/backbutton"

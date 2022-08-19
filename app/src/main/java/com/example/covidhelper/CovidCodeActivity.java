@@ -255,6 +255,7 @@ public class CovidCodeActivity extends AppCompatActivity {
                     case R.id.settings:
                         Intent settings_inten55t=new Intent (CovidCodeActivity.this, SettingsActivity.class);
                         settings_inten55t.putExtra("username", username);
+                        startActivity(settings_inten55t);
                         finish();
                         overridePendingTransition(0,0);
                         return;
