@@ -1,5 +1,6 @@
 package com.example.covidhelper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -17,10 +19,14 @@ import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.util.Base64;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,7 +58,6 @@ public class SymptomsActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         Random rand=new Random();
         int rand_int=rand.nextInt(100000 - 100) + 100;
-
         String username=getIntent().getStringExtra("username");
         RadioButton coughingYes, coughingNo, nauseaYes, nauseaNo, runnynoseYes, runnynoseNo, soreYes,soreNo, dijarejaYes,dijarejaNo, headacheYes, headacheNo, fatigueYes, fatigueNo;
         RadioButton severebreathing, paleskin, unabletowake, confusion, pressure;
@@ -145,7 +150,6 @@ public class SymptomsActivity extends AppCompatActivity {
 
                         } else{
                             severe_breathing="No";
-                            alert_needed="No";
 
                         }
                         if (unabletowake.isChecked()){
@@ -155,17 +159,14 @@ public class SymptomsActivity extends AppCompatActivity {
                             final_message=final_message+".Unable to wake and stay awake.";
                         } else {
                             un_to_wake="No";
-                            alert_needed="No";
 
                         }
                         if (confusion.isChecked()){
                             confusion_s="Yes";
-                            alert_needed="Yes";
 
                             final_message=final_message+".Confusion reported.";
                         } else {
                             confusion_s="No";
-                            alert_needed="No";
 
                         }
                         if (pressure.isChecked()){
@@ -174,7 +175,6 @@ public class SymptomsActivity extends AppCompatActivity {
 
                             final_message=final_message+".Pressure on chest reported";
                         } else{
-                            pressure_s="No";
                             alert_needed="No";
 
                         }
@@ -294,7 +294,7 @@ public class SymptomsActivity extends AppCompatActivity {
 
                                         httpConn.setDoOutput(true);
                                         OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
-                                        writer.write("phone_number=38761648664&message="+l_name.toUpperCase() +" " + f_name.toUpperCase() + " REQUIRES YOUR IMMEDIATE REACTION, BECAUSE HE REPORTED:" +final_message + "&message_type=ARN");
+                                        writer.write("phone_number=38761648664&message="+l_name.toUpperCase() +" " + f_name.toUpperCase() + " REQUIRES YOUR IMMEDIATE REACTION, BECAUSE HE / SHE REPORTED:" +final_message + "&message_type=ARN");
                                         writer.flush();
                                         writer.close();
                                         httpConn.getOutputStream().close();
@@ -346,7 +346,37 @@ public class SymptomsActivity extends AppCompatActivity {
 
             }
         });
-
+        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.symptoms);
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.dashboard:
+                        Intent xxnt=new Intent(SymptomsActivity.this, CovidCodeActivity.class);
+                        xxnt.putExtra("username",username);
+                        startActivity(xxnt);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                        case R.id.settings:
+                        Intent settingssss_intent=new Intent(SymptomsActivity.this, SettingsActivity.class);
+                        settingssss_intent.putExtra("username", username);
+                        startActivity(settingssss_intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.doctor:
+                        Intent symptomsaa_intent=new Intent(SymptomsActivity.this, DoctorActivity.class);
+                        symptomsaa_intent.putExtra("username",username);
+                        startActivity(symptomsaa_intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.symptoms:
+                }
+            }
+        });
 
     }
 }

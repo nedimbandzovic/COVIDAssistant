@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +28,10 @@ public class ChangeActivity extends AppCompatActivity {
         EditText fourcode;
         fourcode=findViewById(R.id.editTextTextPersonName5);
         Button resend, submit;
+        ImageView back;
         submit=findViewById(R.id.button9);
         resend=findViewById(R.id.button10);
-
+        back=findViewById(R.id.backbutton);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -61,6 +63,15 @@ public class ChangeActivity extends AppCompatActivity {
                 Intent restart_intent=new Intent(ChangeActivity.this, ChangeActivity.class);
                 restart_intent.putExtra("username", username);
                 startActivity(restart_intent);
+                overridePendingTransition(0,0);
+            }
+        });
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent back_intent=new Intent(ChangeActivity.this, SettingsActivity.class);
+                back_intent.putExtra("username", username);
+                startActivity(back_intent);
                 overridePendingTransition(0,0);
             }
         });

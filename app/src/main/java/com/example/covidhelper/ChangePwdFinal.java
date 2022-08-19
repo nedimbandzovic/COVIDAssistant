@@ -3,12 +3,14 @@ package com.example.covidhelper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class ChangePwdFinal extends AppCompatActivity {
@@ -29,12 +31,24 @@ public class ChangePwdFinal extends AppCompatActivity {
         confirm=findViewById(R.id.button11);
         UserDatabase userDatabase = UserDatabase.getUserDatabase(getApplicationContext());
         UserDao userDao = userDatabase.userDao();
+        ImageView back2;
+        back2=findViewById(R.id.backbutton4);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 oldPwd=userDao.get_password_by_username(username);
             }
         }).start();
+        back2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backchange_intent=new Intent(ChangePwdFinal.this, ChangeActivity.class);
+                backchange_intent.putExtra("username", username);
+                startActivity(backchange_intent);
+                overridePendingTransition(0,0);
+            }
+        });
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

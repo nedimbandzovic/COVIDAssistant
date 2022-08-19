@@ -64,8 +64,6 @@ public class DoctorActivity extends AppCompatActivity {
         doctor_email=findViewById(R.id.textView145);
         doctor_hospital=findViewById(R.id.textView1445);
         ImageView onlineofflinespec;
-        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.doctor);
         onlineofflinespec=findViewById(R.id.imageView8);
         int abcd = rand.nextInt(2);
         TextView subject, message;
@@ -225,29 +223,6 @@ public class DoctorActivity extends AppCompatActivity {
         } else{
             onlineofflinespec.setImageResource(R.drawable.offlinedot);
         }
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.dashboard:
-                        startActivity(new Intent(DoctorActivity.this, CovidCodeActivity.class));
-                        finish();
-                        overridePendingTransition(0,0);
-                    case R.id.settings:
-                        Intent settings_intent=new Intent(DoctorActivity.this, SettingsActivity.class);
-                        settings_intent.putExtra("username", username);
-                        startActivity(settings_intent);
-                        finish();
-                        overridePendingTransition(0,0);
-                        return;
-                    case R.id.symptoms:
-                        startActivity(new Intent(DoctorActivity.this, SymptomsActivity.class));
-                        finish();
-                        overridePendingTransition(0,0);
-                        return;
-                }
-            }
-        });
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -259,6 +234,37 @@ public class DoctorActivity extends AppCompatActivity {
                 doctor_hospital.setText(doctorH);
             }
         }).start();
+        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.doctor);
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.dashboard:
+                        Intent dashboard_intent1=new Intent(DoctorActivity.this, CovidCodeActivity.class);
+                        dashboard_intent1.putExtra("username",username);
+                        startActivity(dashboard_intent1);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                        case R.id.settings:
+                        Intent settings_intent2=new Intent(DoctorActivity.this, SettingsActivity.class);
+                        settings_intent2.putExtra("username", username);
+                        startActivity(settings_intent2);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.symptoms:
+                        Intent symptoms_intent3=new Intent(DoctorActivity.this, SymptomsActivity.class);
+                        symptoms_intent3.putExtra("username",username);
+                        startActivity(symptoms_intent3);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.doctor:
+                }
+            }
+        });
 
 
     }

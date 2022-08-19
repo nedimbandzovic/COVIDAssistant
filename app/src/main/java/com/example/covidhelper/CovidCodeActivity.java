@@ -42,8 +42,6 @@ public class CovidCodeActivity extends AppCompatActivity {
         decr=findViewById(R.id.button_decr);
         setter=findViewById(R.id.button4);
         man=findViewById(R.id.imageView9);
-        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
-        bottomNavigationView.setSelectedItemId(R.id.dashboard);
         progress=findViewById(R.id.text_view_progress);
         ProgressBar progress_bar=findViewById(R.id.progress_bar);
         UserDatabase userDatabase=UserDatabase.getUserDatabase(getApplicationContext());
@@ -52,33 +50,6 @@ public class CovidCodeActivity extends AppCompatActivity {
         smell=findViewById(R.id.radioButton2);
         taste=findViewById(R.id.radioButton3);
         radioBtn=findViewById(R.id.button34);
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.doctor:
-                        Intent doctor_intent=new Intent (CovidCodeActivity.this, DoctorActivity.class);
-                        doctor_intent.putExtra("username", username);
-                        startActivity(doctor_intent);
-                        finish();
-                        overridePendingTransition(0,0);
-                        return;
-                    case R.id.settings:
-                        Intent settings_intent=new Intent (CovidCodeActivity.this, SettingsActivity.class);
-                        settings_intent.putExtra("username", username);
-                        finish();
-                        overridePendingTransition(0,0);
-                        return;
-                    case R.id.symptoms:
-                        Intent symptoms_intent=new Intent(CovidCodeActivity.this, SymptomsActivity.class);
-                        symptoms_intent.putExtra("username",username);
-                        startActivity(symptoms_intent);
-                        finish();
-                        overridePendingTransition(0,0);
-                        return;
-                }
-            }
-        });
         radioBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,7 +238,36 @@ public class CovidCodeActivity extends AppCompatActivity {
 
             }
         }).start();
-
+        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.dashboard);
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.dashboard:
+                    case R.id.doctor:
+                        Intent doctor_inten44t=new Intent (CovidCodeActivity.this, DoctorActivity.class);
+                        doctor_inten44t.putExtra("username", username);
+                        startActivity(doctor_inten44t);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.settings:
+                        Intent settings_inten55t=new Intent (CovidCodeActivity.this, SettingsActivity.class);
+                        settings_inten55t.putExtra("username", username);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.symptoms:
+                        Intent sym22ptoms_intent=new Intent(CovidCodeActivity.this, SymptomsActivity.class);
+                        sym22ptoms_intent.putExtra("username",username);
+                        startActivity(sym22ptoms_intent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                }
+            }
+        });
 
     }
 }

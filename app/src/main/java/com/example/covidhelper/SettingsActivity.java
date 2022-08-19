@@ -1,13 +1,18 @@
 package com.example.covidhelper;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -56,6 +61,37 @@ public class SettingsActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
 
+            }
+        });
+        BottomNavigationView bottomNavigationView=findViewById(R.id.navigation);
+        bottomNavigationView.setSelectedItemId(R.id.settings);
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.dashboard:
+                        Intent dashboard_insstent=new Intent(SettingsActivity.this, CovidCodeActivity.class);
+                        dashboard_insstent.putExtra("username",username);
+                        startActivity(dashboard_insstent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                        case R.id.doctor:
+                        Intent settings_intxxent=new Intent(SettingsActivity.this, DoctorActivity.class);
+                        settings_intxxent.putExtra("username", username);
+                        startActivity(settings_intxxent);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.symptoms:
+                        Intent symptoms_interrnt=new Intent(SettingsActivity.this, SymptomsActivity.class);
+                        symptoms_interrnt.putExtra("username",username);
+                        startActivity(symptoms_interrnt);
+                        finish();
+                        overridePendingTransition(0,0);
+                        return;
+                    case R.id.settings:
+                }
             }
         });
     }
