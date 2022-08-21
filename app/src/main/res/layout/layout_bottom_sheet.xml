@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bottomSheetContainer"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Vaccine Information"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:textStyle="bold"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorDivider"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/vaccinePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/sinopharm"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/vaccineName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Women's Synthetic Dress Lines"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/vaccineManInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Free Delivery"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:textSize="17sp"/>
+            <TextView
+                android:id="@+id/vaccineInfo"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="$734"
+                android:textColor="@color/black"
+                android:textStyle="normal"
+                android:textSize="17sp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Information about the vaccine"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/detailsVac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Information about the vaccine"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:textSize="17sp"/>
+
+</LinearLayout>

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.covidhelper">
 
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-        <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +17,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.COVIDHelper"
         tools:targetApi="31">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key"/>
+        <activity
+            android:name=".VaccineActivity7"
+            android:exported="false" />
+        <activity
+            android:name=".VaccineActivity6"
+            android:exported="false" />
+        <activity
+            android:name=".VaccineActivity5"
+            android:exported="false" />
+        <activity
+            android:name=".VaccineActivity4"
+            android:exported="false" />
+        <activity
+            android:name=".VaccineActivity3"
+            android:exported="false" />
+        <activity
+            android:name=".VaccineActivity1"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_key" />
+
         <activity
             android:name=".Map"
             android:exported="false" />
