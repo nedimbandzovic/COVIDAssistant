@@ -18,6 +18,9 @@
         android:theme="@style/Theme.COVIDHelper"
         tools:targetApi="31">
         <activity
+            android:name=".VaccineGenerate"
+            android:exported="false" />
+        <activity
             android:name=".VaccineActivity7"
             android:exported="false" />
         <activity

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VaccinationActivity"
+    tools:context=".VaccineGenerate"
     android:background="@drawable/vakcinapozadina">
 
     <ImageView
@@ -91,7 +91,7 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RESERVE YOUR VACCINATION AGAINST COVID-19"
+        android:text="GET YOUR VACCINATION RESERVATION CERTIFICATE"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -101,32 +101,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.641" />
 
-    <Button
-        android:id="@+id/button12"
+    <EditText
+        android:id="@+id/editTextTextPersonName10"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:text="PROCEED"
-        android:backgroundTint="@color/green"
-        android:textColor="@color/white"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/rounded_corner"
+        android:textColor="@color/black"
+        android:hint="Enter your JMBG"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.729" />
+        app:layout_constraintVertical_bias="0.731" />
 
     <Button
-        android:id="@+id/button20"
+        android:id="@+id/button21"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
+        android:text="Proceed"
         android:backgroundTint="@color/green"
         android:textColor="@color/white"
-        android:text="GENERATE YOUR RESERVATION CERTIFICATE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.821" />
+        app:layout_constraintVertical_bias="0.822" />>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
