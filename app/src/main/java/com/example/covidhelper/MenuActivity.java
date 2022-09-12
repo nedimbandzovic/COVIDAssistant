@@ -15,7 +15,6 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         Button vaccine_button=(Button)findViewById(R.id.vaccine);
-        Button news=(Button)findViewById(R.id.news);
         Button assistant=(Button)findViewById(R.id.assistant);
         vaccine_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,14 +22,6 @@ public class MenuActivity extends AppCompatActivity {
                 Intent vaccine_intent=new Intent (MenuActivity.this, VaccinationActivity.class);
                 startActivity(vaccine_intent);
                 overridePendingTransition(0, 0);
-            }
-        });
-        news.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent news_intent=new Intent (MenuActivity.this, NewsActivity.class);
-                startActivity(news_intent);
-                overridePendingTransition(0,0);
             }
         });
         assistant.setOnClickListener(new View.OnClickListener() {

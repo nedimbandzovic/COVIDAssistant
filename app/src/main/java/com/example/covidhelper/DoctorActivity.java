@@ -219,6 +219,9 @@ public class DoctorActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),"Message successfully sent", Toast.LENGTH_SHORT).show();
+                        message.setText("");
+                        subject.setText("");
+                        checkBox.setChecked(false);
                     }
                 });
             }

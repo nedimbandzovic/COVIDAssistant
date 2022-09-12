@@ -157,6 +157,7 @@ public class SymptomsActivity extends AppCompatActivity {
                             hdche_status="No";
                             headacheYes.setClickable(false);
                         }
+                        final_message="";
                         if (severebreathing.isChecked()){
                             severe_breathing="Yes";
                             alert_needed="Yes";
@@ -191,6 +192,14 @@ public class SymptomsActivity extends AppCompatActivity {
                         } else{
                             alert_needed="No";
 
+                        }
+                        if (paleskin.isChecked()){
+                            pale_skin="Yes";
+                            alert_needed="Yes";
+
+                            final_message=final_message+". Pale skin reported";
+                        } else{
+                            alert_needed="No";
                         }
                         askForPermission();
                         PdfDocument myPdfDocument = new PdfDocument();
@@ -291,8 +300,18 @@ public class SymptomsActivity extends AppCompatActivity {
 
                             public void onFinish() {
 
-                                Toast.makeText(getApplicationContext(), "Report generated successfully", Toast.LENGTH_SHORT).show();
-                                if (final_message.length()>0){
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Report generated successfully", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                });
+
+                                if (final_message==null){
+                                    dialogt.dismiss();
+                                }
+                                else if (final_message.length()>0){
                                     try {
                                         URL url = new URL("https://rest-api.telesign.com/v1/messaging");
                                         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -325,12 +344,9 @@ public class SymptomsActivity extends AppCompatActivity {
                                     } catch (IOException ioex) {
                                         ioex.printStackTrace();
                                     } finally {
+                                        dialogt.dismiss();
 
                                     }
-                                    dialogt.dismiss();
-
-                                } else if (final_message==null){
-                                    dialogt.dismiss();
 
                                 }
 

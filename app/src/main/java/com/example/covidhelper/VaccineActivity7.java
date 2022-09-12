@@ -81,12 +81,9 @@ public class VaccineActivity7 extends AppCompatActivity implements GoogleApiClie
         int month=calendar.get(Calendar.MONTH);
         int day=calendar.get(Calendar.DAY_OF_MONTH);
         CheckBox robot;
-        robot=findViewById(R.id.checkBox10);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        GoogleApiClient googleApiClient;
-        googleApiClient=new GoogleApiClient.Builder(VaccineActivity7.this).addApi(SafetyNet.API).addConnectionCallbacks(VaccineActivity7.this).build();
-        googleApiClient.connect();
+
         if (vac1.equals("Not selected")){
             vacName=vacName+"";
         } else {
@@ -109,24 +106,14 @@ public class VaccineActivity7 extends AppCompatActivity implements GoogleApiClie
         } else{
             vacName=vacName+"AstraZeneca vaccine";
         }
-        robot.setOnClickListener(new View.OnClickListener() {
+
+        checkBox_final.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (robot.isChecked()){
-                    SafetyNet.SafetyNetApi.verifyWithRecaptcha(googleApiClient,SiteKey)
-                            .setResultCallback(new ResultCallback<SafetyNetApi.RecaptchaTokenResult>() {
-                                @Override
-                                public void onResult(@NonNull SafetyNetApi.RecaptchaTokenResult recaptchaTokenResult) {
-                                    Status status=recaptchaTokenResult.getStatus();
-                                    if ((status!=null) && status.isSuccess()){
-                                        Toast.makeText(getApplicationContext(), "Verification is successful", Toast.LENGTH_SHORT).show();
-                                        finalize.setEnabled(true);
-                                    }
-                                }
-                            });
-                }
+                finalize.setEnabled(true);
             }
         });
+
         finalize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
